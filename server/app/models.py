@@ -9,7 +9,7 @@ class DirectionEnum(str, enum.Enum):
     SHORT = "SHORT"
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "tj_users"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
@@ -19,10 +19,10 @@ class User(Base):
     trades = relationship("Trade", back_populates="owner", cascade="all, delete")
 
 class Trade(Base):
-    __tablename__ = "trades"
+    __tablename__ = "tj_trades"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("tj_users.id"), nullable=False)
     symbol = Column(String, nullable=False)
     direction = Column(Enum(DirectionEnum), nullable=False)
     entry_price = Column(Float, nullable=False)
